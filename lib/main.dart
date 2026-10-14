@@ -22,6 +22,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(fontFamily: "Irancell"),
       home: Scaffold(
         body: SafeArea(
           child: Row(
@@ -38,7 +39,6 @@ class _MyAppState extends State<MyApp> {
                     begin: Alignment.topRight,
                     end: Alignment.bottomLeft,
                   ),
-                  // color: const Color(0xFF011C40),
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Container(
@@ -50,20 +50,38 @@ class _MyAppState extends State<MyApp> {
                         height: 150,
                         child: Container(
                           margin: EdgeInsets.only(bottom: 20),
-                          color: Colors.white30,
-                          child: Row(
+                          // color: Colors.white30,
+                          child: Column(
                             children: [
-                              Image.asset(),
-                              Text('Username')
+                              Container(
+                                padding: EdgeInsets.all(2), // Border width
+                                decoration: BoxDecoration(
+                                  color: HexColor('#99ddff'),
+                                  shape: BoxShape.circle,
+                                ),
+                                child: ClipOval(
+                                  child: SizedBox.fromSize(
+                                    size: Size.fromRadius(48), // Image radius
+                                    child: Image.asset(
+                                      'assets/images/user-avatar.jpg',
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                ),
+                              ),
+
+                              SizedBox(height: 10),
+
+                              Text(
+                                'نام کاربر: کاربر 1',
+                                style: TextStyle(color: Colors.white70),
+                              ),
                             ],
                           ),
                         ),
                       ),
 
-                      Container(
-                        width: 200,
-                          height: 1,
-                          color: Colors.white38),
+                      Container(width: 200, height: 1, color: Colors.white38),
                       SizedBox(height: 30),
 
                       SizedBox(
@@ -168,7 +186,7 @@ class _MyAppState extends State<MyApp> {
                               children: [
                                 Container(
                                   margin: EdgeInsets.only(right: 10),
-                                  child: const Text('شهریه و پرداخت ها'),
+                                  child: const Text('شهریه و پرداخت'),
                                 ),
                                 const Icon(Icons.price_change),
                               ],
@@ -290,6 +308,23 @@ class _MyAppState extends State<MyApp> {
                           ),
                         ),
                       ),
+
+                      const Spacer(),
+
+                      const Padding(
+                        padding: EdgeInsets.only(bottom: 15),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(Icons.developer_mode, color: Colors.white70),
+                            SizedBox(width: 5),
+                            Text(
+                              'Developed By Elyas',
+                              style: TextStyle(color: Colors.white70),
+                            ),
+                          ],
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -297,9 +332,67 @@ class _MyAppState extends State<MyApp> {
 
               // Main content
               Expanded(
-                child: Container(
-                  margin: const EdgeInsets.only(top: 10, left: 10, right: 0),
-                  child: Center(child: const Text('Content')),
+                child: Column(
+                  children: [
+                    Container(
+                      height: 65,
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: myColor,
+                          begin: Alignment.topRight,
+                          end: Alignment.bottomLeft,
+                        ),
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                      margin: const EdgeInsets.only(
+                        top: 10,
+                        left: 10,
+                        right: 0,
+                      ),
+                      padding: EdgeInsets.only(left: 10, right: 10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          ElevatedButton(
+                            onPressed: () {},
+                            style: ButtonStyle(
+                              backgroundColor: WidgetStatePropertyAll(
+                                Colors.transparent,
+                              ),
+                              foregroundColor:
+                                  WidgetStateProperty<Color>.fromMap(
+                                    <WidgetStatesConstraint, Color>{
+                                      WidgetState.focused: Colors.blueAccent,
+                                      WidgetState.pressed | WidgetState.hovered:
+                                          Colors.blue,
+                                      WidgetState.any: Colors.deepOrangeAccent,
+                                    },
+                                  ),
+                              shape: WidgetStatePropertyAll(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(5),
+                                ),
+                              ),
+                            ),
+                            child: Row(
+                              children: [
+                                Text("پشتیبانی"),
+                                Icon(Icons.support_agent),
+                              ],
+                            ),
+                          ),
+                          const Text(
+                            'برنامه حسابداری مدرسه عارف',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          const Text(
+                            'تاریخ: 1405/07/22',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ],
