@@ -61,8 +61,9 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
+  assets:
+    - assets/images/
+    - assets/fonts/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
@@ -76,17 +77,41 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
-  #       - asset: fonts/Schyler-Italic.ttf
-  #         style: italic
-  #   - family: Trajan Pro
-  #     fonts:
-  #       - asset: fonts/TrajanPro.ttf
-  #       - asset: fonts/TrajanPro_Bold.ttf
-  #         weight: 700
-  #
+  fonts:
+    - family: Irancell
+      fonts:
+        - asset: assets/fonts/MTNIrancell-Light.ttf
+          weight: 200
+
+        - asset: assets/fonts/MTNIrancell-ExtraLight.ttf
+          weight: 100
+
+        - asset: assets/fonts/MTNIrancell-Bold.ttf
+          weight: 800
+
+        - asset: assets/fonts/irancell.ttf
+          weight: 500
+
+        - asset: assets/fonts/irancell-medium.ttf
+          weight: 600
+
+        - asset: assets/fonts/irancell-black.ttf
+          weight: 700
+
+    - family: Togfont
+      fonts:
+        - asset: assets/fonts/Togfont.ttf
+          weight: 500
+
+    - family: CFN
+      fonts:
+        - asset: assets/fonts/cfn.otf
+          weight: 500
+
+    - family: Dirooz
+      fonts:
+        - asset: assets/fonts/Dirooz.ttf
+          weight: 500
+
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package
