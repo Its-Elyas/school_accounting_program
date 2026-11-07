@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolorconvert/hexcolor.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
 
 void main() {
   runApp(MyApp());
@@ -18,6 +19,24 @@ class _MyAppState extends State<MyApp> {
     HexColor('#18254d'),
     HexColor('#2d489c'),
   ];
+
+  // Current Dropdown value
+  String dropdownvalue = 'اطلاعات پایه';
+
+  final List<String> items = [
+    'Item1',
+    'Item2',
+    'Item3',
+    'Item4',
+    'Item5',
+    'Item6',
+    'Item7',
+    'Item8',
+  ];
+  final valueListenable = ValueNotifier<String?>(null);
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -335,7 +354,217 @@ class _MyAppState extends State<MyApp> {
                 child: Column(
                   children: [
                     Container(
-                      height: 65,
+                      height: 50,
+                      decoration: BoxDecoration(
+                        border: BoxBorder.all(width: 2),
+                        color: Colors.white24,
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                      margin: const EdgeInsets.only(
+                        top: 10,
+                        left: 10,
+                        right: 0,
+                      ),
+                      padding: EdgeInsets.only(left: 10, right: 10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          TextButton(
+                            style: ButtonStyle(
+                              foregroundColor: WidgetStateProperty.all<Color>(Colors.black54),
+                              overlayColor: WidgetStateProperty.resolveWith<Color?>((states){
+                                if (states.contains(WidgetState.hovered)){
+                                  return HexColor('#EDEDED');
+                                }
+                                if (states.contains(WidgetState.pressed)){
+                                  return HexColor('#ADADAD');
+                                }
+                              }
+                              ),
+                              shape: WidgetStatePropertyAll<OutlinedBorder>(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(4)
+                                )
+                              )
+                            ),
+                            child: Text("تنظیمات مدیریتی"),
+
+                            onPressed: () {},
+                          ),
+
+                          TextButton(
+                            style: ButtonStyle(
+                              foregroundColor: WidgetStateProperty.all<Color>(Colors.black54),
+                              overlayColor: WidgetStateProperty.resolveWith<Color?>(
+                                  (states){
+                                    if (states.contains(WidgetState.hovered)){
+                                      return HexColor('#EDEDED');
+                                    }
+                                    if (states.contains(WidgetState.pressed)){
+                                      return HexColor('#ADADAD');
+                                    }
+                                  }
+                              )
+                            ),
+                              onPressed: () {},
+                              child: Text("گزارشات")),
+
+                          TextButton(onPressed: () {}, child: Text("اصلاحات")),
+
+                          TextButton(
+                            onPressed: () {},
+                            child: Text("عملیات مالی"),
+                          ),
+
+                          TextButton(
+                            onPressed: () {},
+                            child: Text("اطلاعات پایه"),
+                          ),
+
+          DropdownButtonHideUnderline(
+            child: DropdownButton2<String>(
+              isExpanded: true,
+              hint: const Row(
+                children: [
+
+
+                  Expanded(
+                    child: Text(
+                      textDirection: TextDirection.rtl,
+                      textAlign: TextAlign.right,
+                      'امکانات پایه',
+                      style: TextStyle(
+
+
+                      ),
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                ],
+              ),
+              items: items
+                  .map(
+                    (String item) => DropdownItem<String>(
+                  value: item,
+                  height: 40,
+                  child: Text(
+                    item,
+                    style: const TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+              )
+                  .toList(),
+              valueListenable: valueListenable,
+              onChanged: (value) {
+                valueListenable.value = value;
+              },
+              buttonStyleData: ButtonStyleData(
+                height: 35,
+                width: 150,
+                // padding: const EdgeInsets.only(left: 8, right: 8),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(4),
+                  // border: Border.all(
+                  //   color: Colors.black26,
+                  // ),
+                  // color: Colors.redAccent,
+                ),
+                elevation: 2,
+              ),
+
+              dropdownStyleData: DropdownStyleData(
+                maxHeight: 200,
+                width: 200,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(14),
+                  color: Colors.redAccent,
+                ),
+                offset: const Offset(-20, 0),
+                scrollbarTheme: ScrollbarThemeData(
+                  radius: const Radius.circular(40),
+                  thickness: WidgetStateProperty.all(6),
+                  thumbVisibility: WidgetStateProperty.all(true),
+                ),
+              ),
+              menuItemStyleData: const MenuItemStyleData(
+                padding: EdgeInsets.only(left: 14, right: 14),
+              ),
+            ),
+          ),
+
+
+
+
+
+
+
+
+                          PopupMenuButton<String>(
+                            tooltip: 'عملیات های پایه',
+
+                            style: ButtonStyle(
+
+                                shape: WidgetStatePropertyAll<OutlinedBorder>(
+                                    RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(4)
+                                    )
+                                )
+                            ),
+
+                            onSelected: (value) {
+                              setState(() {
+                                dropdownvalue = value;
+                              });
+                            },
+
+                            color: Colors.white70,
+
+                            itemBuilder: (context) => [
+                              const PopupMenuItem(
+                            value: 'پایه دهم',
+                            child: Align(
+                              alignment: Alignment.centerRight,
+                              child: Text(
+                                'پایه دهم',
+                                textDirection: TextDirection.rtl,
+                                textAlign: TextAlign.right,
+                              ),
+                            ),
+
+                              ),
+                              const PopupMenuItem(
+                                value: 'پایه یازدهم',
+                                child: Text('پایه یازدهم'),
+                              ),
+                              const PopupMenuItem(
+                                value: 'پایه دوازدهم',
+                                child: Text('پایه دوازدهم'),
+                              ),
+                            ],
+
+                            child: Container(
+                              width: 90,
+                              height: 30,
+                              alignment: Alignment.centerRight,
+                              child: const Text(
+                                'اطلاعات پایه',
+                                style: TextStyle(
+                                  color: Colors.black87,
+                                ),
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+
+                    Container(
+                      height: 50,
                       decoration: BoxDecoration(
                         gradient: LinearGradient(
                           colors: myColor,
