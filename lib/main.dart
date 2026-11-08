@@ -28,8 +28,64 @@ class _MyAppState extends State<MyApp> {
 
   // For base option
   bool isBaseDataMenuOpen = false;
+
   // For accounting operation
   bool isAccountingMenuOpen = false;
+
+  // For edits operation
+  bool isEdittingMenuOpen = false;
+
+  // For reports operation
+  bool isReportingMenuOpen = false;
+
+  // For admin settings operation
+  bool isAdminSettingMenuOpen = false;
+
+  void SetActive(String operationName, bool status){
+    switch (operationName)  {
+      case 'isBaseDataMenuOpen':
+        isBaseDataMenuOpen = status;
+        isAccountingMenuOpen = false;
+        isEdittingMenuOpen = false;
+        isReportingMenuOpen = false;
+        isAdminSettingMenuOpen = false;
+        break;
+      case 'isAccountingMenuOpen'  :
+        isAccountingMenuOpen = status;
+        isBaseDataMenuOpen = false;
+        isEdittingMenuOpen = false;
+        isReportingMenuOpen = false;
+        isAdminSettingMenuOpen = false;
+        break;
+      case 'isEdittingMenuOpen':
+        isEdittingMenuOpen = status;
+        isAccountingMenuOpen = false;
+        isBaseDataMenuOpen = false;
+        isReportingMenuOpen = false;
+        isAdminSettingMenuOpen = false;
+        break;
+      case 'isReportingMenuOpen':
+        isReportingMenuOpen = status;
+        isEdittingMenuOpen = false;
+        isAccountingMenuOpen = false;
+        isBaseDataMenuOpen = false;
+        isAdminSettingMenuOpen = false;
+        break;
+      case 'isAdminSettingMenuOpen':
+        isAdminSettingMenuOpen = status;
+        isReportingMenuOpen = false;
+        isEdittingMenuOpen = false;
+        isAccountingMenuOpen = false;
+        isBaseDataMenuOpen = false;
+        break;
+      default:
+        isReportingMenuOpen = false;
+        isEdittingMenuOpen = false;
+        isAccountingMenuOpen = false;
+        isBaseDataMenuOpen = false;
+        break;
+    }
+  }
 
   final List<String> items = [
     'Item1',
@@ -384,14 +440,14 @@ class _MyAppState extends State<MyApp> {
                                 Colors.transparent,
                               ),
                               foregroundColor:
-                              WidgetStateProperty<Color>.fromMap(
-                                <WidgetStatesConstraint, Color>{
-                                  WidgetState.focused: Colors.blueAccent,
-                                  WidgetState.pressed | WidgetState.hovered:
-                                  Colors.blue,
-                                  WidgetState.any: Colors.deepOrangeAccent,
-                                },
-                              ),
+                                  WidgetStateProperty<Color>.fromMap(
+                                    <WidgetStatesConstraint, Color>{
+                                      WidgetState.focused: Colors.blueAccent,
+                                      WidgetState.pressed | WidgetState.hovered:
+                                          Colors.blue,
+                                      WidgetState.any: Colors.deepOrangeAccent,
+                                    },
+                                  ),
                               shape: WidgetStatePropertyAll(
                                 RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(5),
@@ -428,54 +484,94 @@ class _MyAppState extends State<MyApp> {
                             color: Colors.white24,
                             borderRadius: BorderRadius.circular(5),
                           ),
-                          margin: const EdgeInsets.only(
-                            top: 10,
-                            left: 10,
-                          ),
+                          margin: const EdgeInsets.only(top: 10, left: 10),
                           padding: const EdgeInsets.symmetric(horizontal: 10),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
                               TextButton(
-                                onPressed: () {},
-                                child: const Text('تنظیمات مدیریتی'),
-                              ),
-                              TextButton(
-                                onPressed: () {},
-                                child: const Text('گزارشات'),
-                              ),
-                              TextButton(
-                                onPressed: () {},
-                                child: const Text('اصلاحات'),
-                              ),
-                              TextButton(
-                                onPressed: () {},
-                                child: const Text('عملیات مالی'),
+                                onPressed: () {
+                                  setState(() {
+                                    SetActive('isAdminSettingMenuOpen', !isAdminSettingMenuOpen);
+                                  });
+                                },
+                                child: Row(
+                                  children: [
+                                    Text(
+                                        'تنظیمات مدیریتی',
+                                      style: TextStyle(
+                                        color: isAdminSettingMenuOpen
+                                            ? Colors.red
+                                            : null,
+                                      ),
+                                    ),
+                                    Icon(
+                                      isAdminSettingMenuOpen
+                                          ? Icons.keyboard_arrow_up
+                                          : Icons.keyboard_arrow_down,
+
+                                      color: isAdminSettingMenuOpen
+                                          ? Colors.red
+                                          : Colors.deepPurpleAccent,
+                                    ),
+                                  ],
+                                ),
+
                               ),
 
                               TextButton(
                                 onPressed: () {
                                   setState(() {
-                                    isAccountingMenuOpen = !isAccountingMenuOpen;
+                                    SetActive('isReportingMenuOpen', !isReportingMenuOpen);
+                                  });
+                                },
+                                child: Row(
+                                  children: [
+                                     Text(
+                                        'گزارشات',
+                                      style: TextStyle(
+                                        color: isReportingMenuOpen
+                                            ? Colors.red
+                                            : null,
+                                      ),
+                                    ),
+                                    Icon(
+                                      isReportingMenuOpen
+                                          ? Icons.keyboard_arrow_up
+                                          : Icons.keyboard_arrow_down,
+
+                                      color: isReportingMenuOpen
+                                          ? Colors.red
+                                          : Colors.deepPurpleAccent,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              TextButton(
+                                onPressed: () {
+                                  setState(() {
+                                    SetActive('isEdittingMenuOpen', !isEdittingMenuOpen);
                                   });
                                 },
                                 child: Row(
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
-                                    Text(
-                                        'عملیات مالی',
+                                     Text(
+                                      'اصلاحات',
                                       style: TextStyle(
-                                        color: isAccountingMenuOpen ? Colors.red : Colors.deepPurpleAccent
+                                        color: isEdittingMenuOpen
+                                            ? Colors.red
+                                            : null,
                                       ),
                                     ),
                                     Icon(
-                                      isAccountingMenuOpen
+                                      isEdittingMenuOpen
                                           ? Icons.keyboard_arrow_up
                                           : Icons.keyboard_arrow_down,
 
-                                      color:
-                                      isAccountingMenuOpen
-                                        ? Colors.red : Colors.deepPurpleAccent
+                                      color: isEdittingMenuOpen
+                                          ? Colors.red
+                                          : Colors.deepPurpleAccent,
                                     ),
                                   ],
                                 ),
@@ -484,17 +580,58 @@ class _MyAppState extends State<MyApp> {
                               TextButton(
                                 onPressed: () {
                                   setState(() {
-                                    isBaseDataMenuOpen = !isBaseDataMenuOpen;
+                                    SetActive('isAccountingMenuOpen', !isAccountingMenuOpen);
                                   });
                                 },
                                 child: Row(
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
-                                    const Text('امکانات پایه'),
+                                    Text(
+                                      'عملیات مالی',
+                                      style: TextStyle(
+                                        color: isAccountingMenuOpen
+                                            ? Colors.red
+                                            : null,
+                                      ),
+                                    ),
+                                    Icon(
+                                      isAccountingMenuOpen
+                                          ? Icons.keyboard_arrow_up
+                                          : Icons.keyboard_arrow_down,
+
+                                      color: isAccountingMenuOpen
+                                          ? Colors.red
+                                          : Colors.deepPurpleAccent,
+                                    ),
+                                  ],
+                                ),
+                              ),
+
+                              TextButton(
+                                onPressed: () {
+                                  setState(() {
+                                    SetActive('isBaseDataMenuOpen', !isBaseDataMenuOpen);
+                                  });
+                                },
+
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Text(
+                                      'امکانات پایه',
+                                      style: TextStyle(
+                                        color: isBaseDataMenuOpen
+                                            ? Colors.red
+                                            : null,
+                                      ),
+                                    ),
                                     Icon(
                                       isBaseDataMenuOpen
                                           ? Icons.keyboard_arrow_up
                                           : Icons.keyboard_arrow_down,
+                                      color: isBaseDataMenuOpen
+                                          ? Colors.red
+                                          : null,
                                     ),
                                   ],
                                 ),
@@ -511,44 +648,50 @@ class _MyAppState extends State<MyApp> {
                           alignment: Alignment.topCenter,
                           child: isBaseDataMenuOpen
                               ? Container(
-                            margin: const EdgeInsets.only(
-                              left: 10,
-                              top: 5,
-                            ),
-                            padding: const EdgeInsets.all(15),
-                            decoration: BoxDecoration(
-                              color: Colors.indigo.shade50,
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                            child: Wrap(
-                              spacing: 12,
-                              runSpacing: 10,
-                              children: [
-                                TextButton.icon(
-                                  onPressed: () {
-                                    exit(0);
-                                  },
-                                  icon: const Icon(Icons.logout),
-                                  label: const Text('خروج از نرم افزار'),
-                                ),
-                                TextButton.icon(
-                                  onPressed: () {},
-                                  icon: const Icon(Icons.backup_table),
-                                  label: const Text('تهیه و بازیابی نسخه پشتیبان'),
-                                ),
-                                TextButton.icon(
-                                  onPressed: () {},
-                                  icon: const Icon(Icons.perm_phone_msg_outlined),
-                                  label: const Text('دفتر تلفن'),
-                                ),
-                                TextButton.icon(
-                                  onPressed: () {},
-                                  icon: const Icon(Icons.people_alt_outlined),
-                                  label: const Text('طرف حساب'),
-                                ),
-                              ],
-                            ),
-                          )
+                                  margin: const EdgeInsets.only(
+                                    left: 10,
+                                    top: 5,
+                                  ),
+                                  padding: const EdgeInsets.all(15),
+                                  decoration: BoxDecoration(
+                                    color: Colors.indigo.shade50,
+                                    borderRadius: BorderRadius.circular(5),
+                                  ),
+                                  child: Wrap(
+                                    spacing: 12,
+                                    runSpacing: 10,
+                                    children: [
+                                      TextButton.icon(
+                                        onPressed: () {
+                                          exit(0);
+                                        },
+                                        icon: const Icon(Icons.logout),
+                                        label: const Text('خروج از نرم افزار'),
+                                      ),
+                                      TextButton.icon(
+                                        onPressed: () {},
+                                        icon: const Icon(Icons.backup_table),
+                                        label: const Text(
+                                          'تهیه و بازیابی نسخه پشتیبان',
+                                        ),
+                                      ),
+                                      TextButton.icon(
+                                        onPressed: () {},
+                                        icon: const Icon(
+                                          Icons.perm_phone_msg_outlined,
+                                        ),
+                                        label: const Text('دفتر تلفن'),
+                                      ),
+                                      TextButton.icon(
+                                        onPressed: () {},
+                                        icon: const Icon(
+                                          Icons.people_alt_outlined,
+                                        ),
+                                        label: const Text('طرف حساب'),
+                                      ),
+                                    ],
+                                  ),
+                                )
                               : const SizedBox.shrink(),
                         ),
 
@@ -559,6 +702,106 @@ class _MyAppState extends State<MyApp> {
                           curve: Curves.easeInOut,
                           alignment: Alignment.topCenter,
                           child: isAccountingMenuOpen
+                              ? Container(
+                                  margin: const EdgeInsets.only(
+                                    left: 10,
+                                    top: 5,
+                                  ),
+                                  padding: const EdgeInsets.all(15),
+                                  decoration: BoxDecoration(
+                                    color: Colors.indigo.shade50,
+                                    borderRadius: BorderRadius.circular(5),
+                                  ),
+                                  child: Wrap(
+                                    spacing: 12,
+                                    runSpacing: 10,
+                                    children: [
+                                      TextButton.icon(
+                                        onPressed: () {},
+                                        icon: const Icon(Icons.account_balance),
+                                        label: const Text('تعریف بانک'),
+                                      ),
+                                      TextButton.icon(
+                                        onPressed: () {},
+                                        icon: const Icon(Icons.request_page),
+                                        label: const Text('چک ها'),
+                                      ),
+                                      TextButton.icon(
+                                        onPressed: () {},
+                                        icon: const Icon(
+                                          Icons.account_balance_wallet,
+                                        ),
+                                        label: const Text('صدور سند حسابداری'),
+                                      ),
+                                    ],
+                                  ),
+                                )
+                              : const SizedBox.shrink(),
+                        ),
+
+                        // Expandable Menu for isEdittingMenuOpen
+                        AnimatedSize(
+                          duration: const Duration(milliseconds: 350),
+                          reverseDuration: const Duration(milliseconds: 350),
+                          curve: Curves.easeInOut,
+                          alignment: Alignment.topCenter,
+                          child: isEdittingMenuOpen
+                              ? Container(
+                                  margin: const EdgeInsets.only(
+                                    left: 10,
+                                    top: 5,
+                                  ),
+                                  padding: const EdgeInsets.all(15),
+                                  decoration: BoxDecoration(
+                                    color: Colors.indigo.shade50,
+                                    borderRadius: BorderRadius.circular(5),
+                                  ),
+                                  child: Wrap(
+                                    spacing: 12,
+                                    runSpacing: 10,
+                                    children: [
+                                      TextButton.icon(
+                                        onPressed: () {},
+                                        icon: const Icon(Icons.delete_forever),
+                                        label: const Text('حذف گروهی اسناد'),
+                                      ),
+                                      TextButton.icon(
+                                        onPressed: () {},
+                                        icon: const Icon(Icons.request_page),
+                                        label: const Text('چک'),
+                                      ),
+                                      TextButton.icon(
+                                        onPressed: () {},
+                                        icon: const Icon(Icons.currency_bitcoin),
+                                        label: const Text('دریافتی'),
+                                      ),
+                                      TextButton.icon(
+                                        onPressed: () {},
+                                        icon: const Icon(
+                                          Icons.find_in_page,
+                                        ),
+                                        label: const Text('سند'),
+                                      ),
+                                      TextButton.icon(
+                                        onPressed: () {},
+                                        icon: const Icon(
+                                          Icons.people_alt_outlined,
+                                        ),
+                                        label: const Text('دانش آموز'),
+                                      ),
+                                    ],
+                                  ),
+                                )
+                              : const SizedBox.shrink(),
+                        ),
+
+                        // Expandable Menu for isReportingMenuOpen
+                        AnimatedSize(
+                          duration: const Duration(milliseconds: 350),
+                          reverseDuration: const Duration(milliseconds: 350),
+                          curve: Curves.easeInOut,
+                          alignment: Alignment.topCenter,
+                          child: isReportingMenuOpen
                               ? Container(
                             margin: const EdgeInsets.only(
                               left: 10,
@@ -577,23 +820,50 @@ class _MyAppState extends State<MyApp> {
                                   onPressed: () {
                                     exit(0);
                                   },
-                                  icon: const Icon(Icons.logout),
-                                  label: const Text('خروج از نرم افزار'),
+                                  icon: const Icon(Icons.perm_contact_calendar_outlined),
+                                  label: const Text('طرف حساب'),
+                                ),
+                                TextButton.icon(
+                                  onPressed: () {
+                                    exit(0);
+                                  },
+                                  icon: const Icon(Icons.person),
+                                  label: const Text('دانش آموز'),
+                                ),
+                                SizedBox(
+                                    height: 35,
+                                    width: 2,
+                                    child: Container(
+                                        color: Colors.black26
+                                    )
                                 ),
                                 TextButton.icon(
                                   onPressed: () {},
                                   icon: const Icon(Icons.backup_table),
-                                  label: const Text('تهیه و بازیابی نسخه پشتیبان'),
+                                  label: const Text(
+                                    'گزارش فصلی',
+                                  ),
                                 ),
                                 TextButton.icon(
                                   onPressed: () {},
-                                  icon: const Icon(Icons.perm_phone_msg_outlined),
-                                  label: const Text('دفتر تلفن'),
+                                  icon: const Icon(Icons.request_page_outlined),
+                                  label: const Text(
+                                    'چک ها',
+                                  ),
+                                ),
+                               TextButton.icon(
+                                  onPressed: () {},
+                                  icon: const Icon(
+                                    Icons.account_balance_wallet_rounded,
+                                  ),
+                                  label: const Text('حسابداری'),
                                 ),
                                 TextButton.icon(
                                   onPressed: () {},
-                                  icon: const Icon(Icons.people_alt_outlined),
-                                  label: const Text('طرف حساب'),
+                                  icon: const Icon(
+                                    Icons.document_scanner_outlined,
+                                  ),
+                                  label: const Text('گزارش عمومی'),
                                 ),
                               ],
                             ),
@@ -601,11 +871,62 @@ class _MyAppState extends State<MyApp> {
                               : const SizedBox.shrink(),
                         ),
 
+                        // Expandable Menu for isAdminSettingMenuOpen
+                        AnimatedSize(
+                          duration: const Duration(milliseconds: 350),
+                          reverseDuration: const Duration(milliseconds: 350),
+                          curve: Curves.easeInOut,
+                          alignment: Alignment.topCenter,
+                          child: isAdminSettingMenuOpen
+                              ? Container(
+                            margin: const EdgeInsets.only(
+                              left: 10,
+                              top: 5,
+                            ),
+                            padding: const EdgeInsets.all(15),
+                            decoration: BoxDecoration(
+                              color: Colors.indigo.shade50,
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                            child: Wrap(
+                              spacing: 12,
+                              runSpacing: 10,
+                              children: [
+                                TextButton.icon(
+                                  onPressed: () {
+                                    exit(0);
+                                  },
+                                  icon: const Icon(Icons.security),
+                                  label: const Text('تنظیمات امنیتی'),
+                                ),
+                                TextButton.icon(
+                                  onPressed: () {},
+                                  icon: const Icon(Icons.online_prediction),
+                                  label: const Text(
+                                    'تنظیمات سرویس آنلاین',
+                                  ),
+                                ),
+                                TextButton.icon(
+                                  onPressed: () {},
+                                  icon: const Icon(
+                                    Icons.account_circle_outlined,
+                                  ),
+                                  label: const Text('تنظیمات حساب کاربری'),
+                                ),
+                                TextButton.icon(
+                                  onPressed: () {},
+                                  icon: const Icon(
+                                    Icons.settings_applications,
+                                  ),
+                                  label: const Text('نظیمات نرم افزار'),
+                                ),
+                              ],
+                            ),
+                          )
+                              : const SizedBox.shrink(),
+                        ),
                       ],
                     ),
-
-
-
                   ],
                 ),
               ),
