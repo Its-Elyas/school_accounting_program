@@ -1,62 +1,67 @@
 import 'package:flutter/material.dart';
 
+
 class CustomDialogWindow extends StatelessWidget {
+  final String title;
+  final Widget contentWidget;
 
-  String title;
-  Widget contentWidget;
-
-  CustomDialogWindow({super.key, required this.title, required this.contentWidget});
+  const CustomDialogWindow({
+    super.key,
+    required this.title,
+    required this.contentWidget,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return AlertDialog(
-      title: SizedBox(
-          width: double.infinity,
-          child: Text(
-            title,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontWeight: FontWeight.bold
-            ),
-          )
-      ),
-      content: SizedBox(
+    return Dialog(
+      child: SizedBox(
         width: 800,
-        height: 500,
-        child: Container(
-          decoration: BoxDecoration(
-            border: Border.all(
-              width: 1,
-              color: Colors.black45
+        height: 600,
+        child: Column(
+          children: [
+
+            Container(
+              height: 45,
+              color: const Color(0xFF000F3D),
+              child: Row(
+                children: [
+
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.only(right: 15),
+                      child: Text(
+                        title,
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                          fontSize: 20,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+
+                  IconButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    icon: const Icon(Icons.close),
+                    color: Colors.red,
+                    tooltip: 'بستن',
+                  ),
+                ],
               ),
             ),
 
-          child: Center(
-            child: contentWidget,
-          ),
+            Expanded(
+              child: Container(
+                width: double.infinity,
+                child: contentWidget,
+              ),
+            ),
+          ],
         ),
       ),
-      actionsAlignment: MainAxisAlignment.center,
-      actions: [
-        TextButton.icon(
-          onPressed: () {
-            Navigator.pop(context
-            );
-          },
-          style: ButtonStyle(
-            backgroundColor: WidgetStatePropertyAll(
-              Colors.black12
-            ),
-          ),
-          label: Text(
-              'بستن',
-            style: TextStyle( color: Colors.red),
-          ),
-
-
-
-        ),
-      ],
     );
   }
 }
