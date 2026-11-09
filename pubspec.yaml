@@ -39,6 +39,8 @@ dependencies:
   hexcolorconvert: ^0.0.1
   dropdown_button2: ^3.1.0
   desktop_multi_window: ^0.3.1
+  horizontal_data_table: ^4.3.4
+  syncfusion_flutter_datagrid: ^35.1.43
 
 dev_dependencies:
   flutter_test:
